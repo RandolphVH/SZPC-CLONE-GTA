@@ -87,3 +87,13 @@ body {
     border-radius: 50px;
     transition: all 0.3s ease;
 }
+
+.botao-primario {
+    background-color: #ff3d8b;
+    color: #ffffff;
+}
+
+.botao-primario:hover {
+    box-shadow: 0 0 28px rgba(255, 61, 139, 0.65);
+    transform: translateY(-2px);
+}
