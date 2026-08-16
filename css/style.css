@@ -132,7 +132,7 @@ body {
     margin-bottom: 8px;
 }
 
-.capa-data{
+.capa-data {
     font-family: 'Oswald', sans-serif;
     font-size: 24px;
     font-weight: 700;
@@ -152,7 +152,7 @@ body {
     font-weight: 700;
 }
 
-.capa-seta{
+.capa-seta {
     position: absolute;
     bottom: 0px;
     left: 0;
@@ -165,10 +165,14 @@ body {
 }
 
 @keyframes saltar {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-8px);
     }
 }
+
