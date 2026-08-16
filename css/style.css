@@ -319,3 +319,13 @@ body {
     color: #ffffff;
     background-color: #ff3d8b;
 }
+
+.rodape-classificacao, .rodape-direitos {
+    color: #6e6e85;
+    font-size: 13px;
+    max-width: 640px;
+}
+
+.rodape-classificacao a {
+    color: #c4c0d8;
+}
