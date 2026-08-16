@@ -1,5 +1,11 @@
 const menu = document.getElementById("menu");
 
 window.addEventListener("scroll", function () {
-    menu.classList.add("menu-rolado");
+
+    if (window.scrollY > 50) {
+        menu.classList.add("menu-rolado");
+    } else {
+        menu.classList.remove("menu-rolado")
+    }
+
 })

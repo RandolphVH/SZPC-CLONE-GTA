@@ -21,6 +21,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
+    transition: transform 0.3 ease;
 }
 
 .menu-conteudo {
@@ -36,6 +37,10 @@ body {
     text-decoration: none;
     color: #ffffff;
     text-shadow: 0 0 10px rgba(255, 61, 139, 0.4);
+}
+
+.menu-rolado{
+    transform: translateY(-100%);
 }
 
 .capa-video {
