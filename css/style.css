@@ -110,15 +110,16 @@ body {
     max-width: 900px;
     width: 90%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 32px;
 }
 
-.capa-lacamento {
+.capa-lancamento {
     flex: 1;
 }
 
-.capa-plataforma {
+.capa-plataformas {
     flex: 1;
     text-align: right;
 }
@@ -254,3 +255,26 @@ body {
     width: 18px;
     height: 18px;
 }
+
+.rodape {
+    background-color: #14142a;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 80px 0 40px;
+}
+
+.rodape-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+}
+
+.rodape-logo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 61, 139, 0.3);
+}
+
