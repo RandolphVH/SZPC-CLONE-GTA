@@ -127,3 +127,20 @@ body {
     flex: 1;
     text-align: right;
 }
+
+.capa-rotulo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #6e6e85;
+    margin-bottom: 8px;
+}
+
+.capa-data{
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
