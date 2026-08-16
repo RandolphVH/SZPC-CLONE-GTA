@@ -1,4 +1,5 @@
 const menu = document.getElementById("menu");
+const blocos = document.querySelectorAll(".aparecer");
 
 window.addEventListener("scroll", function () {
 
