@@ -43,7 +43,6 @@ body {
 }
 
 .capa {
-    background-color: blue;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -55,7 +54,6 @@ body {
 }
 
 .capa-conteudo {
-    background-color: red;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -64,7 +62,6 @@ body {
 }
 
 .capa-moldura {
-    background-color: blueviolet;
     max-width: 900px;
     width: 90%;
     border-radius: 12px;
@@ -99,7 +96,6 @@ body {
 }
 
 .capa-barra {
-    background-color: green;
     width: 100%;
     background-color: rgba(13, 13, 26, 0.85);
     border-top: 1px solid rgba(255, 255, 255, 0.5);
@@ -111,7 +107,6 @@ body {
 }
 
 .capa-barra-conteudo {
-    background-color: saddlebrown;
     max-width: 900px;
     width: 90%;
     display: flex;
@@ -144,3 +139,36 @@ body {
     text-transform: uppercase;
 }
 
+.lista-plataformas {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    color: #c4c0d8;
+}
+
+.texto-plataforma {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.capa-seta{
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    z-index: 4;
+    opacity: 0.7;
+    animation: saltar 2s infinite;
+}
+
+@keyframes saltar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
