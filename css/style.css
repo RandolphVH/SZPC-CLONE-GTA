@@ -339,3 +339,14 @@ body {
 .rodape-classificacao a {
     color: #c4c0d8;
 }
+
+.aparecer{
+    opacity: 0;
+    transition: translateY(30px);
+    transition: all 1s ease-in-out;
+}
+
+.aparecer.visivel{
+    opacity: 1;
+    transform: translateY(0);
+}
