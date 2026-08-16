@@ -278,3 +278,16 @@ body {
     text-shadow: 0 0 15px rgba(255, 61, 139, 0.3);
 }
 
+.rodape-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 24px;
+}
+
+.rodape-links a {
+    color: #c4c0d8;
+   text-decoration: none;
+    font-size: 14px; 
+}
+
