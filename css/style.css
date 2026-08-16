@@ -177,7 +177,6 @@ body {
 }
 
 .conteudo-central{
-    background-color: green;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 32px;
@@ -210,4 +209,10 @@ body {
 .historia-texto {
     max-width: 800px;
     margin: 0 auto;
+}
+
+.historia-texto p {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #c4c0d8;
 }
