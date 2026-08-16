@@ -54,7 +54,7 @@ body {
     padding: 40px;
 }
 
-.capa-conteudo{
+.capa-conteudo {
     background-color: red;
     width: 100%;
     display: flex;
@@ -63,7 +63,7 @@ body {
     padding: 16px 0 8px;
 }
 
-.capa-moldura{
+.capa-moldura {
     background-color: blueviolet;
     max-width: 900px;
     width: 90%;
@@ -77,7 +77,7 @@ body {
     border-radius: 12px;
 }
 
-.botao{
+.botao {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -96,4 +96,34 @@ body {
 .botao-primario:hover {
     box-shadow: 0 0 28px rgba(255, 61, 139, 0.65);
     transform: translateY(-2px);
+}
+
+.capa-barra {
+    background-color: green;
+    width: 100%;
+    background-color: rgba(13, 13, 26, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 20px 0;
+    position: relative;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+}
+
+.capa-barra-conteudo {
+    background-color: saddlebrown;
+    max-width: 900px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.capa-lacamento {
+    flex: 1;
+}
+
+.capa-plataforma {
+    flex: 1;
+    text-align: right;
 }
