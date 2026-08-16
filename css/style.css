@@ -287,7 +287,35 @@ body {
 
 .rodape-links a {
     color: #c4c0d8;
-   text-decoration: none;
-    font-size: 14px; 
+    text-decoration: none;
+    font-size: 14px;
 }
 
+.rodape-links a:hover {
+    color: #ff3d8b;
+}
+
+.rodape-redes {
+    display: flex;
+    gap: 16px;
+}
+
+.rede-social {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #c4c0d8;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s;
+}
+
+.rede-social:hover {
+    color: #ffffff;
+    background-color: #ff3d8b;
+}
