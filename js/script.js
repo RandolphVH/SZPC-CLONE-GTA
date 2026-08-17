@@ -61,15 +61,15 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
 
     const iniciarAnimacaoVideo = function () {
         const duracao = video.duration || 15;
-        const tempoScroll = duracao * 1000;
+        const tempoScroll = duracao * 300;
 
+        // Timeline rápida para desaparecer os conteúdos iniciais
         gsap.timeline({
             scrollTrigger: {
                 trigger: capa,
                 start: "top top",
-                end: "+=" + tempoScroll,
-                scrub: 1,
-                pin: true,
+                end: "+=600",
+                scrub: 0.5,
             }
         })
             .to(video, { opacity: 1, ease: "none" }, 0)
@@ -77,10 +77,10 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
                 opacity: 0,
                 y: -40,
                 scale: 0.6,
-                duration: 0.1,
                 ease: "none",
-            }, 0.02)
+            }, 0);
 
+        // Timeline longa para controlar o vídeo conforme o scroll
         gsap.to(video, {
             currentTime: function () {
                 if (!video.duration || Number.isNaN(video.duration)) {
@@ -96,6 +96,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
                 end: "+=" + tempoScroll,
                 scrub: 1.2,
                 invalidateOnRefresh: true,
+                pin: true,
             }
         });
     };
