@@ -10,3 +10,16 @@ window.addEventListener("scroll", function () {
     }
 
 })
+
+const observador = new IntersectionObserver(function (entradas) {
+
+    entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+            entrada.target.classList.add("visivel")
+        }
+    })
+});
+
+blocos.forEach(function (bloco) {
+    observador.observe(bloco);
+})
