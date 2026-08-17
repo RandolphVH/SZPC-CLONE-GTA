@@ -1,5 +1,6 @@
 const menu = document.getElementById("menu");
 const blocos = document.querySelectorAll(".aparecer");
+const video = document.querySelector(".capa-video");
 
 window.addEventListener("scroll", function () {
 
@@ -22,4 +23,5 @@ const observador = new IntersectionObserver(function (entradas) {
 
 blocos.forEach(function (bloco) {
     observador.observe(bloco);
-})
+});
+
