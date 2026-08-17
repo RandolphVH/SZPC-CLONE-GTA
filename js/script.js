@@ -59,6 +59,9 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     video.setAttribute("playsinline", "true");
     video.preload = "metadata";
 
+    // Detecta se é mobile
+    const isMobile = window.innerWidth < 768;
+
     const iniciarAnimacaoVideo = function () {
         const duracao = video.duration || 15;
         const tempoScroll = duracao * 300;
@@ -69,7 +72,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
                 trigger: capa,
                 start: "top top",
                 end: "+=600",
-                scrub: 0.5,
+                scrub: isMobile ? 0.3 : 0.5,
             }
         })
             .to(video, { opacity: 1, ease: "none" }, 0)
@@ -94,7 +97,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
                 trigger: capa,
                 start: "top top",
                 end: "+=" + tempoScroll,
-                scrub: 1.2,
+                scrub: isMobile ? 0.8 : 1.2,
                 invalidateOnRefresh: true,
                 pin: true,
             }
