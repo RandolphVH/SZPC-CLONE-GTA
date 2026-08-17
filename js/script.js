@@ -57,57 +57,53 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     video.muted = true;
     video.playsInline = true;
     video.setAttribute("playsinline", "true");
+    video.preload = "metadata";
 
-    const tocarVideo = function () {
-        const playPromise = video.play();
+    const iniciarAnimacaoVideo = function () {
+        const duracao = video.duration || 15;
+        const tempoScroll = duracao * 1000;
 
-        if (playPromise && typeof playPromise.catch === "function") {
-            playPromise.catch(function () {
-                // autoplay pode ser bloqueado até o usuário interagir
-            });
-        }
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: capa,
+                start: "top top",
+                end: "+=" + tempoScroll,
+                scrub: 1,
+                pin: true,
+            }
+        })
+            .to(video, { opacity: 1, ease: "none" }, 0)
+            .to(".capa-conteudo, .capa-barra, .capa-seta", {
+                opacity: 0,
+                y: -40,
+                scale: 0.6,
+                duration: 0.1,
+                ease: "none",
+            }, 0.02)
+
+        gsap.to(video, {
+            currentTime: function () {
+                if (!video.duration || Number.isNaN(video.duration)) {
+                    return 0;
+                }
+
+                return video.duration;
+            },
+            ease: "none",
+            scrollTrigger: {
+                trigger: capa,
+                start: "top top",
+                end: "+=" + tempoScroll,
+                scrub: 1.2,
+                invalidateOnRefresh: true,
+            }
+        });
     };
 
-    if (video.readyState >= 2) {
-        tocarVideo();
+    if (video.readyState >= 1) {
+        iniciarAnimacaoVideo();
     } else {
-        video.addEventListener("loadeddata", tocarVideo, { once: true });
+        video.addEventListener("loadedmetadata", iniciarAnimacaoVideo, { once: true });
     }
-
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: capa,
-            start: "top top",
-            end: "+=2500",
-            scrub: 1,
-            pin: true,
-        }
-    })
-        .to(video, { opacity: 1, ease: "none" }, 0)
-        .to(".capa-conteudo, .capa-barra, .capa-seta", {
-            opacity: 0,
-            y: -40,
-            scale: 0.6,
-            duration: 0.1,
-            ease: "none",
-        }, 0.02)
-
-    gsap.to(video, {
-        currentTime: function () {
-            if (!video.duration || Number.isNaN(video.duration)) {
-                return 0;
-            }
-
-            return video.duration;
-        },
-        ease: "none",
-        scrollTrigger: {
-            trigger: capa,
-            start: "top top",
-            end: "+=1200",
-            scrub: 1.2,
-            invalidateOnRefresh: true,
-        }
-    });
 }
 
