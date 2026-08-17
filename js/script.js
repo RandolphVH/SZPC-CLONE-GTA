@@ -104,10 +104,19 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
         });
     };
 
+    // Tenta iniciar se o vídeo já está pronto
     if (video.readyState >= 1) {
         iniciarAnimacaoVideo();
     } else {
+        // Aguarda o vídeo carregar
         video.addEventListener("loadedmetadata", iniciarAnimacaoVideo, { once: true });
     }
+
+    // Fallback: se o vídeo não carregar em 3 segundos, inicia mesmo assim
+    setTimeout(function () {
+        if (!video.src || video.readyState === 0) {
+            iniciarAnimacaoVideo();
+        }
+    }, 3000);
 }
 
