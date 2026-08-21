@@ -201,7 +201,7 @@ body{
 
 main{
     position: relative;
-    z-index: 0;
+    z-index: 2;
 }
 
 .conteudo-central{
@@ -213,6 +213,8 @@ main{
 .secao-historia{
     padding: 120px 0;
     text-align: center;
+    position: relative;
+    z-index: 3;
 }
 
 .rotulo{

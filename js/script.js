@@ -65,6 +65,8 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     const iniciarAnimacaoVideo = function () {
         const duracao = video.duration || 15;
         const tempoScroll = duracao * 300;
+        const tempoEntradaInformacoes = 240;
+        const tempoSaida = 240;
 
         // Timeline rápida para desaparecer os conteúdos iniciais
         gsap.timeline({
@@ -83,25 +85,45 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
                 ease: "none",
             }, 0);
 
-        // Timeline longa para controlar o vídeo conforme o scroll
-        gsap.to(video, {
-            currentTime: function () {
-                if (!video.duration || Number.isNaN(video.duration)) {
-                    return 0;
-                }
-
-                return video.duration;
-            },
-            ease: "none",
+        // Mantém a capa fixa enquanto as informações entram e o vídeo desaparece.
+        gsap.timeline({
             scrollTrigger: {
                 trigger: capa,
                 start: "top top",
-                end: "+=" + tempoScroll,
+                end: "+=" + (tempoScroll + tempoEntradaInformacoes + tempoSaida),
                 scrub: isMobile ? 0.8 : 1.2,
                 invalidateOnRefresh: true,
                 pin: true,
             }
-        });
+        })
+            .to(video, {
+                currentTime: function () {
+                    if (!video.duration || Number.isNaN(video.duration)) {
+                        return 0;
+                    }
+
+                    return video.duration;
+                },
+                duration: tempoScroll,
+                ease: "none",
+            })
+            .fromTo(".secao-historia",
+                { y: "100vh" },
+                {
+                    y: 0,
+                    duration: tempoEntradaInformacoes,
+                    ease: "none",
+                })
+            .to(video, {
+                opacity: 0,
+                duration: tempoSaida,
+                ease: "none",
+            })
+            .to(capaPainel, {
+                y: -100,
+                duration: tempoSaida,
+                ease: "none",
+            }, "<");
     };
 
     // Tenta iniciar se o vídeo já está pronto
