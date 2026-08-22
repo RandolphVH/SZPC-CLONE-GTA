@@ -65,7 +65,6 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     const iniciarAnimacaoVideo = function () {
         const duracao = video.duration || 15;
         const tempoScroll = duracao * 300;
-        const tempoEntradaInformacoes = 240;
         const tempoSaida = 240;
 
         // Timeline rápida para desaparecer os conteúdos iniciais
@@ -90,7 +89,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
             scrollTrigger: {
                 trigger: capa,
                 start: "top top",
-                end: "+=" + (tempoScroll + tempoEntradaInformacoes + tempoSaida),
+                end: "+=" + (tempoScroll + tempoSaida),
                 scrub: isMobile ? 0.8 : 1.2,
                 invalidateOnRefresh: true,
                 pin: true,
@@ -101,24 +100,26 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
                     if (!video.duration || Number.isNaN(video.duration)) {
                         return 0;
                     }
-
                     return video.duration;
                 },
                 duration: tempoScroll,
                 ease: "none",
             })
-            .fromTo(".secao-historia",
-                { y: "100vh" },
-                {
-                    y: 0,
-                    duration: tempoEntradaInformacoes,
-                    ease: "none",
-                })
             .to(video, {
                 opacity: 0,
                 duration: tempoSaida,
                 ease: "none",
             })
+            .fromTo(".secao-historia",
+                { y: "100vh", opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: tempoSaida,
+                    ease: "none",
+                },
+                "<" // começa exatamente junto com o fade-out do vídeo
+            )
             .to(capaPainel, {
                 y: -100,
                 duration: tempoSaida,
@@ -127,22 +128,21 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     };
 
     // Tenta iniciar se o vídeo já está pronto
-   let animacaoIniciada = false;
+    let animacaoIniciada = false;
 
-const iniciarAnimacaoVideoUmaVez = function () {
-    if (animacaoIniciada) return;
-    animacaoIniciada = true;
-    iniciarAnimacaoVideo();
-};
+    const iniciarAnimacaoVideoUmaVez = function () {
+        if (animacaoIniciada) return;
+        animacaoIniciada = true;
+        iniciarAnimacaoVideo();
+    };
 
-if (video.readyState >= 1) {
-    iniciarAnimacaoVideoUmaVez();
-} else {
-    video.addEventListener("loadedmetadata", iniciarAnimacaoVideoUmaVez, { once: true });
+    if (video.readyState >= 1) {
+        iniciarAnimacaoVideoUmaVez();
+    } else {
+        video.addEventListener("loadedmetadata", iniciarAnimacaoVideoUmaVez, { once: true });
+    }
+
+    setTimeout(function () {
+        iniciarAnimacaoVideoUmaVez();
+    }, 3000);
 }
-
-setTimeout(function () {
-    iniciarAnimacaoVideoUmaVez();
-}, 3000);
-}
-
