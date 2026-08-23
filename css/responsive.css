@@ -1,4 +1,18 @@
+@media(max-width: 1366px) {
+    .capa-conteudo {
+        width: 40%;
+        padding: 16px 0 80px;
+
+    }
+}
+
 @media (max-width: 700px) {
+    .capa-conteudo {
+        width: 100%;
+        padding: 16px 0 8px;
+
+    }
+
     .capa-barra-conteudo {
         flex-direction: column;
         text-align: center;
