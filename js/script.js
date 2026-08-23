@@ -1,23 +1,3 @@
-// OBJETIVO: dar comportamento ao site do GTA VI com JavaScript.
-
-// Passos:
-// 1. MENU QUE SOME AO ROLAR
-//    - achar o menu no HTML
-//    - escutar o evento de rolagem da janela
-//    - se a página desceu mais de 50px, adicionar a classe "menu-rolado"
-//    - se voltou pro topo, remover a classe
-
-// 2. BLOCOS QUE APARECEM
-//    - achar todos os elementos com a classe "aparecer"
-//    - avisar quando cada um entrar na tela
-//    - ao entrar, adicionar a classe "visivel"
-
-// 3. VÍDEO QUE ANDA COM O SCROLL
-//    - achar o vídeo da capa
-//    - prender a capa na tela enquanto a pessoa rola
-//    - sumir com o conteúdo da capa e revelar o vídeo
-//    - avançar o tempo do vídeo conforme o scroll
-
 const menu = document.getElementById("menu");
 const blocos = document.querySelectorAll(".aparecer");
 const video = document.querySelector(".capa-video");
