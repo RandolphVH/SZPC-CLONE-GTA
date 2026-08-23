@@ -44,7 +44,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
 
     const iniciarAnimacaoVideo = function () {
         const duracao = video.duration || 15;
-        const pixelsPorSegundo = 300;
+        const pixelsPorSegundo = isMobile ? 180 : 300;
         const tempoScroll = duracao * pixelsPorSegundo;
         const tempoSaida = 240;
         const tempoPausaFinal = 3; // segundos de "leitura" do usuário
