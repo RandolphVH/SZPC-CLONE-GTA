@@ -64,8 +64,12 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
 
     const iniciarAnimacaoVideo = function () {
         const duracao = video.duration || 15;
-        const tempoScroll = duracao * 300;
+        const pixelsPorSegundo = 300;
+        const tempoScroll = duracao * pixelsPorSegundo;
         const tempoSaida = 240;
+        const tempoPausaFinal = 20; // segundos de "leitura" do usuário
+        const distanciaPausaFinal = tempoPausaFinal * pixelsPorSegundo;
+
 
         // Timeline rápida para desaparecer os conteúdos iniciais
         gsap.timeline({
@@ -89,7 +93,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
             scrollTrigger: {
                 trigger: capa,
                 start: "top top",
-                end: "+=" + (tempoScroll + tempoSaida),
+                end: "+=" + (tempoScroll + tempoSaida + distanciaPausaFinal),
                 scrub: isMobile ? 0.8 : 1.2,
                 invalidateOnRefresh: true,
                 pin: true,
@@ -97,34 +101,18 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
         })
             .to(video, {
                 currentTime: function () {
-                    if (!video.duration || Number.isNaN(video.duration)) {
-                        return 0;
-                    }
-                    return video.duration;
+                    return (!video.duration || Number.isNaN(video.duration)) ? 0 : video.duration;
                 },
                 duration: tempoScroll,
                 ease: "none",
             })
-            .to(video, {
-                opacity: 0,
-                duration: tempoSaida,
-                ease: "none",
-            })
+            .to(video, { opacity: 0, duration: tempoSaida, ease: "none" })
             .fromTo(".secao-historia",
-                { y: "100vh", opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: tempoSaida,
-                    ease: "none",
-                },
-                "<" // começa exatamente junto com o fade-out do vídeo
+                { y: "0", opacity: 0 },
+                { y: "-100vh", opacity: 1, duration: tempoSaida, ease: "power2.out" },
+                "<"
             )
-            .to(capaPainel, {
-                y: -100,
-                duration: tempoSaida,
-                ease: "none",
-            }, "<");
+            .to(capaPainel, { y: -100, duration: tempoSaida, ease: "none" }, "<")
     };
 
     // Tenta iniciar se o vídeo já está pronto
