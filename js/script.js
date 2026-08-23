@@ -4,20 +4,18 @@ const video = document.querySelector(".capa-video");
 const capa = document.querySelector(".capa");
 const capaPainel = document.querySelector(".capa-painel");
 const capaConteudo = document.querySelector(".capa-conteudo");
-const capaBarra = document.querySelector(".capa-barra");
-const capaSeta = document.querySelector(".capa-seta");
 
-if (menu) {
+function configurarMenu() {
+    if (!menu) return;
+
     window.addEventListener("scroll", function () {
-        if (window.scrollY > 50) {
-            menu.classList.add("menu-rolado");
-        } else {
-            menu.classList.remove("menu-rolado");
-        }
+        menu.classList.toggle("menu-rolado", window.scrollY > 50);
     });
 }
 
-if (blocos.length) {
+function configurarBlocos() {
+    if (!blocos.length || !window.IntersectionObserver) return;
+
     const observador = new IntersectionObserver(function (entradas) {
         entradas.forEach(function (entrada) {
             if (entrada.isIntersecting) {
@@ -31,7 +29,9 @@ if (blocos.length) {
     });
 }
 
-if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaConteudo) {
+function criarAnimacoesVideo() {
+    if (!window.gsap || !window.ScrollTrigger || !video || !capa || !capaPainel || !capaConteudo) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     video.muted = true;
@@ -39,78 +39,74 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
     video.setAttribute("playsinline", "true");
     video.preload = "metadata";
 
-    // Detecta se é mobile
     const isMobile = window.innerWidth < 768;
+    const duracao = video.duration || 15;
+    const pixelsPorSegundo = isMobile ? 180 : 300;
+    const tempoScroll = duracao * pixelsPorSegundo;
+    const tempoSaida = 240;
+    const distanciaPausaFinal = 5 * pixelsPorSegundo;
 
-    const iniciarAnimacaoVideo = function () {
-        const duracao = video.duration || 15;
-        const pixelsPorSegundo = isMobile ? 180 : 300;
-        const tempoScroll = duracao * pixelsPorSegundo;
-        const tempoSaida = 240;
-        const tempoPausaFinal = 5; // segundos de "leitura" do usuário
-        const distanciaPausaFinal = tempoPausaFinal * pixelsPorSegundo;
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: capa,
+            start: "top top",
+            end: "+=600",
+            scrub: isMobile ? 0.1 : 0.5,
+        }
+    })
+        .to(video, { opacity: 1, ease: "none" }, 0)
+        .to(".capa-conteudo, .capa-barra, .capa-seta", {
+            opacity: 0,
+            y: -40,
+            scale: 0.6,
+            ease: "none",
+        }, 0);
 
-
-        // Timeline rápida para desaparecer os conteúdos iniciais
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: capa,
-                start: "top top",
-                end: "+=600",
-                scrub: isMobile ? 0.1 : 0.5,
-            }
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: capa,
+            start: "top top",
+            end: "+=" + (tempoScroll + tempoSaida + distanciaPausaFinal),
+            scrub: isMobile ? 0.8 : 1.2,
+            invalidateOnRefresh: true,
+            pin: true,
+        }
+    })
+        .to(video, {
+            currentTime: function () {
+                return (!video.duration || Number.isNaN(video.duration)) ? 0 : video.duration;
+            },
+            duration: tempoScroll,
+            ease: "none",
         })
-            .to(video, { opacity: 1, ease: "none" }, 0)
-            .to(".capa-conteudo, .capa-barra, .capa-seta", {
-                opacity: 0,
-                y: -40,
-                scale: 0.6,
-                ease: "none",
-            }, 0);
+        .to(video, { opacity: 0, duration: tempoSaida, ease: "none" })
+        .fromTo(".secao-historia",
+            { y: "0", opacity: 0 },
+            { y: "-100vh", opacity: 1, duration: tempoSaida, ease: "power2.out" },
+            "<"
+        )
+        .to(capaPainel, { y: -100, duration: tempoSaida, ease: "none" }, "<");
+}
 
-        // Mantém a capa fixa enquanto as informações entram e o vídeo desaparece.
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: capa,
-                start: "top top",
-                end: "+=" + (tempoScroll + tempoSaida + distanciaPausaFinal),
-                scrub: isMobile ? 0.8 : 1.2,
-                invalidateOnRefresh: true,
-                pin: true,
-            }
-        })
-            .to(video, {
-                currentTime: function () {
-                    return (!video.duration || Number.isNaN(video.duration)) ? 0 : video.duration;
-                },
-                duration: tempoScroll,
-                ease: "none",
-            })
-            .to(video, { opacity: 0, duration: tempoSaida, ease: "none" })
-            .fromTo(".secao-historia",
-                { y: "0", opacity: 0 },
-                { y: "-100vh", opacity: 1, duration: tempoSaida, ease: "power2.out" },
-                "<"
-            )
-            .to(capaPainel, { y: -100, duration: tempoSaida, ease: "none" }, "<")
-    };
+function iniciarAnimacaoVideo() {
+    if (!video) return;
 
-    // Tenta iniciar se o vídeo já está pronto
     let animacaoIniciada = false;
-
-    const iniciarAnimacaoVideoUmaVez = function () {
+    const iniciarUmaVez = function () {
         if (animacaoIniciada) return;
         animacaoIniciada = true;
-        iniciarAnimacaoVideo();
+        criarAnimacoesVideo();
     };
 
     if (video.readyState >= 1) {
-        iniciarAnimacaoVideoUmaVez();
+        iniciarUmaVez();
     } else {
-        video.addEventListener("loadedmetadata", iniciarAnimacaoVideoUmaVez, { once: true });
+        video.addEventListener("loadedmetadata", iniciarUmaVez, { once: true });
     }
 
-    setTimeout(function () {
-        iniciarAnimacaoVideoUmaVez();
-    }, 3000);
+    setTimeout(iniciarUmaVez, 3000);
 }
+
+configurarMenu();
+configurarBlocos();
+iniciarAnimacaoVideo();
