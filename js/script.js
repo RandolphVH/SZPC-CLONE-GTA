@@ -47,7 +47,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
         const pixelsPorSegundo = isMobile ? 180 : 300;
         const tempoScroll = duracao * pixelsPorSegundo;
         const tempoSaida = 240;
-        const tempoPausaFinal = 3; // segundos de "leitura" do usuário
+        const tempoPausaFinal = 5; // segundos de "leitura" do usuário
         const distanciaPausaFinal = tempoPausaFinal * pixelsPorSegundo;
 
 
