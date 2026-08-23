@@ -57,7 +57,7 @@ if (window.gsap && window.ScrollTrigger && video && capa && capaPainel && capaCo
                 trigger: capa,
                 start: "top top",
                 end: "+=600",
-                scrub: isMobile ? 0.3 : 0.5,
+                scrub: isMobile ? 0.1 : 0.5,
             }
         })
             .to(video, { opacity: 1, ease: "none" }, 0)
